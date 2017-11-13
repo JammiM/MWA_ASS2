@@ -1,0 +1,83 @@
+<ion-pane ng-init="getTasks()">
+
+  <ion-header-bar class="bar-stable bar-dark">
+    <h1 class="title">Todos</h1>
+    <button class="button button-icon" ng-click="openModal()">
+      <i class="icon ion-compose"></i>
+    </button>
+  </ion-header-bar>
+
+  <ion-content>
+    <div class="list card " ng-repeat="task in tasks track by $index">
+        <div class="item bar-dark item-divider">
+            <span ng-bind="task.title"></span>
+        </div>
+        <div class="item item-body">
+            <strong>Title: <span ng-bind="task.title"></span></strong>
+            <p>
+                <span ng-bind="task.content"></span>
+            </p>
+        </div>
+        <div class="item tabs tabs-secondary tabs-icon-left">
+            <span class="item item-checkbox">
+                <label class="checkbox">
+                    <input type="checkbox" ng-model="task.completed" ng-click="completeTask($index)">
+                </label>
+            </span>
+            <a class="tab-item assertive" ng-click="removeTask($index)">
+                <i class="icon ion-android-close"></i>
+            </a>
+        </div>
+    </div>
+  </ion-content>
+
+  <!-- footer -->
+  <div class="tabs tabs-dark tabs-icon-top">
+    <a href="#/home" class="tab-item">
+      <i class="icon ion-home"></i>
+      Home
+    </a>
+    <a href="#/todo" class="tab-item">
+      <i class="icon ion-star"></i>
+      Todos
+    </a>
+    <a href="#/info" class="tab-item">
+      <i class="icon ion-gear-a"></i>
+      Info
+    </a>
+  </div>
+</ion-pane>
+<script id="new-task-modal.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar class="bar-dark">
+            <h1 class="title">Create a new Task</h1>
+            <button class="button button-icon" ng-click="closeModal()">
+                <i class="icon ion-android-close"></i>
+            </button>
+        </ion-header-bar>
+        <ion-content>
+            <form ng-submit="createTask()">
+                <div class="list list-inset">
+                    <label class="item item-input">
+                        <input ng-model="task.title" type="text" placeholder="Task title">
+                    </label>
+                    <label class="item item-input">
+                        <textarea ng-model="task.content" rows="5" placeholder="Task content"></textarea>
+                    </label>
+                    <ul class="list">
+                        <li class="item item-toggle">
+                            Completed?
+                            <label class="toggle toggle-balanced">
+                                <input type="checkbox" ng-model="task.completed">
+                               <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                        </li>
+                    </ul>
+                    <button type="submit" class="button button-block button-positive">Create Task</button>
+                </div>
+            </form>
+        </ion-content>
+    </ion-modal-view>
+</script>
